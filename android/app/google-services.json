@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "304650348761",
+    "project_id": "noteit-328eb",
+    "storage_bucket": "noteit-328eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304650348761:android:740bfdb85cae684910f6c8",
+        "android_client_info": {
+          "package_name": "com.noteit.noteit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhBbs1p6pjB4KigaZGB_siXlDaW-QDSGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
