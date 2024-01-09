@@ -22,8 +22,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await di.initNoteModule();
-  double ex = 0.1;
-  print("HERE IS HOW TO CEIL DOUBLE ${ex.ceilToDouble()}");
   runApp(ChangeNotifierProvider(
       create: (BuildContext context) => ThemeProvider(), child: const MyApp()));
 }

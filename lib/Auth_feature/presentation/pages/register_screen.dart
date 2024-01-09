@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:noteit/Auth_feature/presentation/widgets/default_button_widget.dart';
-import 'package:noteit/Auth_feature/presentation/widgets/google_avatar.dart';
-import 'package:noteit/Auth_feature/presentation/widgets/google_facebook_auth.dart';
-import 'package:noteit/Auth_feature/presentation/widgets/logo_text.dart';
-import 'package:noteit/Auth_feature/presentation/widgets/or_widget.dart';
-import 'package:noteit/Auth_feature/presentation/widgets/textformfield_widget.dart';
 import 'package:noteit/core/config/router/navigation_router.dart';
 import 'package:noteit/core/utils/constants/images/images_path.dart';
+import '../widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
