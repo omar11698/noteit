@@ -50,10 +50,12 @@ class FirebaseRemoteDataSource extends FirebaseRemoteDataSourceContract{
 
   @override
   Future<void> updateNoteInCollection(NoteModel noteModel,NoteModel updatedNoteModel) async {
+    print("we are updating the note the error will be in the implementation of the update note in collection ");
     final thisNote=noteModel.toJson();
 
     final noteUniqueIdTimeDate=thisNote['dateTime'];
     final changeToThisNote=updatedNoteModel.toJson();
+    final newNoteUniqueIdTimeDate=changeToThisNote['dateTime'];
 
     final CollectionReference notesCollection =  firestore.collection('notes');
 
@@ -61,7 +63,9 @@ class FirebaseRemoteDataSource extends FirebaseRemoteDataSourceContract{
 
       await notesCollection.doc(noteUniqueIdTimeDate).get().then((note) async{
         if(note.exists){
-          await notesCollection.doc(noteUniqueIdTimeDate).update(changeToThisNote).then((value) => debugPrint('The note is updated successfully'));
+          await notesCollection.doc(noteUniqueIdTimeDate).delete().then((value) => debugPrint('The note is deleted successfully'));
+          await notesCollection.doc(newNoteUniqueIdTimeDate).set(changeToThisNote).then((value) => debugPrint('The note is updated successfully'));
+
         }
         return;
       });

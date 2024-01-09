@@ -73,5 +73,18 @@ class GridViewBloc extends Bloc<GridviewEvent, GridviewState> {
     }
   }
 
+  _handleSelectNote(UpdateNote event, Emitter<GridviewState> emit) async {
+
+    try{
+      final updateNoteUseCase=UpdateNoteUseCase(repository: instance());
+      await updateNoteUseCase.execute(note:event.note,updatedNote:event.newNote);
+      emit(NotesInitial());
+    }
+    on FirebaseException catch (e){
+      emit(ErrorLoadingNotes(message: e.message.toString()));
+    }
+  }
+
+
 
 }

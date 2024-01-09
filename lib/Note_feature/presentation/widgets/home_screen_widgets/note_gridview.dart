@@ -212,15 +212,14 @@ class DynamicGrid extends StatelessWidget {
     );
   }
 
-  sizeOfNote(
-    NoteCard noteCard,
-  ) {
+  sizeOfNote(NoteCard noteCard,) {
+
     // print("size of note method called ");
     // noteCard.note.title.characters.length;
 
     var bodyLength=noteCard.note.body.length.toDouble();
     var titleLength=noteCard.note.title.length.toDouble();
-
+    var paddingSize=2;
     double sizeOfSingleNoteCard = 0;
 
 
@@ -228,15 +227,15 @@ class DynamicGrid extends StatelessWidget {
 
       // print("Iam a big Note and exceeds the limit..");
 
-      return sizeOfSingleNoteCard = (126/18).ceilToDouble()+(66/13).ceilToDouble();
+      return sizeOfSingleNoteCard = (126/18).ceilToDouble()+(66/13).ceilToDouble()+paddingSize;
 
     }
     if(bodyLength>=126 && titleLength<66){
-      sizeOfSingleNoteCard= (126/18).ceilToDouble() + (titleLength/13).ceilToDouble();
+      sizeOfSingleNoteCard= (126/18).ceilToDouble() + (titleLength/13).ceilToDouble()+paddingSize;
       return sizeOfSingleNoteCard;
     }
     if(titleLength>=66&&bodyLength<126){
-      sizeOfSingleNoteCard=(66/13).ceilToDouble()+(bodyLength/18).ceilToDouble();
+      sizeOfSingleNoteCard=(66/13).ceilToDouble()+(bodyLength/18).ceilToDouble()+paddingSize;
       return sizeOfSingleNoteCard;
     }
 
@@ -244,7 +243,7 @@ class DynamicGrid extends StatelessWidget {
 
       // print("I am a medium note and my body is :$bodyLength & my title lenght is $titleLength");
 
-    sizeOfSingleNoteCard = (bodyLength/18).ceilToDouble()+(titleLength/13).ceilToDouble();
+    sizeOfSingleNoteCard = (bodyLength/18).ceilToDouble()+(titleLength/13).ceilToDouble()+paddingSize;
     return sizeOfSingleNoteCard;
 
     }
@@ -253,27 +252,27 @@ class DynamicGrid extends StatelessWidget {
       print("the body and title are indeed empty");
       bodyLength=1;
       titleLength=1;
-      sizeOfSingleNoteCard= bodyLength+titleLength;
+      sizeOfSingleNoteCard= bodyLength+titleLength+paddingSize;
       return sizeOfSingleNoteCard;
     }
     if(bodyLength<1&&titleLength>0){
       print("the body or title are indeed empty");
 
       bodyLength=1;
-      sizeOfSingleNoteCard = (titleLength/13).ceilToDouble()+bodyLength;
+      sizeOfSingleNoteCard = (titleLength/13).ceilToDouble()+bodyLength+paddingSize;
       return sizeOfSingleNoteCard;
     }
     if(titleLength<1&&bodyLength>0){
       print("the body or title are indeed empty");
 
       titleLength=1;
-      sizeOfSingleNoteCard = (bodyLength/18).ceilToDouble()+titleLength;
+      sizeOfSingleNoteCard = (bodyLength/18).ceilToDouble()+titleLength+paddingSize;
 
       return sizeOfSingleNoteCard;
     }
 
     else{
-      sizeOfSingleNoteCard = (bodyLength/18).ceilToDouble()+(titleLength/13).ceilToDouble();
+      sizeOfSingleNoteCard = (bodyLength/18).ceilToDouble()+(titleLength/13).ceilToDouble()+paddingSize;
       return sizeOfSingleNoteCard;
 
     }

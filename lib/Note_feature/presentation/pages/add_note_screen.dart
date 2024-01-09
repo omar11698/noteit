@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noteit/Note_feature/presentation/pages/home_screen.dart';
 import 'package:noteit/core/utils/extensions/extensions.dart';
 import 'package:provider/provider.dart';
 import '../../../core/utils/constants/utility/colors.dart';
@@ -12,8 +13,9 @@ import '../manager/providers/providers.dart';
 
 class AddNoteScreen extends StatefulWidget {
   final Note note;
+  final bool isEditing;
 
-  const AddNoteScreen({super.key, required this.note});
+  const AddNoteScreen({super.key, required this.note, required this.isEditing});
 
   @override
   State<AddNoteScreen> createState() => _AddNoteScreenState();
@@ -54,24 +56,43 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
             backgroundColor: selectedNoteColor ?? widget.note.color,
             leading: Builder(
               builder: (BuildContext context) {
-                return IconButton(
-                  icon: const Icon(Icons.save),
-                  onPressed: () {
-                    context.read<GridViewBloc>().add(AddNote(
-                        note: Note(
-                            title: _titleController.text.isEmpty
-                                ? _title
-                                : _titleController.text,
-                            body: _bodyController.text.isEmpty
-                                ? _body
-                                : _bodyController.text,
-                            id: Random().nextInt(100),
-                            dateTime: _dateTime,
-                            color: selectedNoteColor)));
-                    context.pop();
+                return GestureDetector(
+                  child: const Icon(Icons.save),
+                  onTap: () {
+                    /// when editing the note not adding new one we save on the previous note
+
+                    if (widget.isEditing) {
+                      print('we are updating note...');
+                      context.read<GridViewBloc>().add(UpdateNote(
+                          note: widget.note,
+                          newNote: Note(
+                              title: _titleController.text.isEmpty
+                                  ? _title
+                                  : _titleController.text,
+                              body: _bodyController.text.isEmpty
+                                  ? _body
+                                  : _bodyController.text,
+                              id: Random().nextInt(100),
+                              dateTime: _dateTime,
+                              color: selectedNoteColor)));
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        Navigator.push(context, _buildPageRoute());
+                      });
+                    } else {
+                      context.read<GridViewBloc>().add(AddNote(
+                          note: Note(
+                              title: _titleController.text.isEmpty
+                                  ? _title
+                                  : _titleController.text,
+                              body: _bodyController.text.isEmpty
+                                  ? _body
+                                  : _bodyController.text,
+                              id: Random().nextInt(100),
+                              dateTime: _dateTime,
+                              color: selectedNoteColor)));
+                      Navigator.push(context, _buildPageRoute());
+                    }
                   },
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
                 );
               },
             ),
@@ -177,7 +198,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                               child: Row(
                                 children: [
                                   Text(
-                                    "${widget.note.dateTime}",
+                                    "${widget.note.dateTime.day}-${widget.note.dateTime.month}-${widget.note.dateTime.year}",
                                     style: GoogleFonts.openSans(
                                         fontSize: 16, color: textColor),
                                   ),
@@ -245,7 +266,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                               width: w * 0.2,
                               height: h * 0.14,
                               decoration: BoxDecoration(
-
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(12),
                                   ),
@@ -258,17 +278,20 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                                     itemCount: 3,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      if(index==value.selectedFontIconIndex){
+                                      if (index ==
+                                          value.selectedFontIconIndex) {
                                         return FontFamilyIcon(
                                           textColor: textColor,
                                           h: h,
-                                          index: index, isSelected: true,
+                                          index: index,
+                                          isSelected: true,
                                         );
                                       }
                                       return FontFamilyIcon(
                                         textColor: textColor,
                                         h: h,
-                                        index: index, isSelected: false,
+                                        index: index,
+                                        isSelected: false,
                                       );
                                     },
                                   )),
@@ -295,9 +318,32 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     super.dispose();
   }
 
-  _changeFontFamilyOfNote(BuildContext context) {}
+  PageRouteBuilder _buildPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) {
+        // Your new screen widget goes here
+        return const MyHomeScreen();
+      },
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = 0.0;
+        const end = 1.0;
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var opacityAnimation = animation.drive(tween);
+        return FadeTransition(
+          opacity: opacityAnimation,
+          child: child,
+        );
+      },
+      transitionDuration:
+          const Duration(seconds: 1), // Set the animation duration
+    );
+  }
 }
 
+_changeFontFamilyOfNote(BuildContext context) {}
 
 class ColorsAvatar extends StatelessWidget {
   const ColorsAvatar({
