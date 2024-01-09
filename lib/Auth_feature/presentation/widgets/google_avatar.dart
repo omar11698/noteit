@@ -13,42 +13,39 @@ class GoogleFacebookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var deviceWidth = MediaQuery.of(context).size.width;
-    return Expanded(
-        child: GestureDetector(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
+        margin: EdgeInsets.all(5),
         height: 40,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: SizedBox(
-                  height: 20,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Image.asset(
-                      icon,
-                    ),
-                  )),
-            ),
+            SizedBox(
+                height: 20,
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Image.asset(
+                    icon,
+                  ),
+                )),
             const SizedBox(
-              width: 5,
+              width: 15,
             ),
             Text(
               cardName,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: deviceWidth > 768 ? 18 : 12,
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(
+              width: 15,
             ),
           ],
         ),
       ),
-    ));
+    );
   }
 }

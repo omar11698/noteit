@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   theme: value.isThemeChanged ? AppTheme.dark : AppTheme.light,
                   onGenerateRoute: NavigationRouter.generateRoute,
-                  initialRoute: registerRouter,
+                  initialRoute: loginRoute,
 
                   // ),
                 );

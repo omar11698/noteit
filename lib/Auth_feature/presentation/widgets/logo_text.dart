@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LogoText extends StatelessWidget {
   final double fontSize;
@@ -9,11 +8,7 @@ class LogoText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       "NoteIt",
-      style: TextStyle(
-          fontSize: fontSize,
-          color: Colors.black,
-          fontWeight: FontWeight.w300,
-          fontFamily: GoogleFonts.acme().fontFamily),
+      style: Theme.of(context).textTheme.titleLarge,
     );
   }
 }

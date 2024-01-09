@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:noteit/Auth_feature/presentation/widgets/default_button_widget.dart';
 import 'package:noteit/Auth_feature/presentation/widgets/google_avatar.dart';
+import 'package:noteit/Auth_feature/presentation/widgets/google_facebook_auth.dart';
 import 'package:noteit/Auth_feature/presentation/widgets/logo_text.dart';
+import 'package:noteit/Auth_feature/presentation/widgets/or_widget.dart';
 import 'package:noteit/Auth_feature/presentation/widgets/textformfield_widget.dart';
 import 'package:noteit/core/config/router/navigation_router.dart';
 import 'package:noteit/core/utils/constants/images/images_path.dart';
@@ -26,10 +28,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     mobileSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -93,13 +100,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 textInputType: TextInputType.phone,
                 icon: Icons.phone,
               ),
-              const Gap(20),
+              const Gap(5),
 
               Align(
                 alignment: Alignment.centerRight,
                 child: alreadyHaveAccount(mobileSize, context),
               ),
-              const Gap(20),
+              const Gap(15),
 
               ///register button
               Padding(
@@ -112,10 +119,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
               const Gap(20),
 
-              orRow(mobileSize),
+              OrWidget(mobileSize: mobileSize),
               const Gap(20),
 
-              googleAndFacebookAuth(mobileSize),
+              GoogleAndFaceBookAuthWidget(mobileSize: mobileSize),
               const Gap(20),
             ],
           ),
@@ -128,63 +135,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Navigator.pushNamed(context, loginRoute);
   }
 
-  Padding googleAndFacebookAuth(Size mobileSize) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GoogleFacebookCard(
-            cardName: "Google",
-            icon: googleImage,
-            onTap: () {},
-          ),
-          SizedBox(
-            width: mobileSize.height * 0.03,
-          ),
-          GoogleFacebookCard(
-            cardName: "Facebook",
-            icon: facebookImage,
-            onTap: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
-  Padding orRow(Size mobileSize) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: FittedBox(
-        fit: BoxFit.fitWidth,
-        clipBehavior: Clip.hardEdge,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-                width: mobileSize.width >= 360 ? 100 : 0,
-                child: const Divider(
-                  color: Colors.grey,
-                  thickness: 1,
-                )),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                "or sign in with ",
-              ),
-            ),
-            SizedBox(
-                width: mobileSize.width >= 360 ? 100 : 0,
-                child: const Divider(
-                  color: Colors.grey,
-                  thickness: 1,
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-
   SizedBox alreadyHaveAccount(Size mobileSize, BuildContext context) {
     return SizedBox(
       width: mobileSize.width * 0.6,
@@ -194,16 +144,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             Text(
               'already have account ',
-              style: TextStyle(fontSize: mobileSize.width > 768 ? 16 : 12),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             InkWell(
               onTap: () => Navigator.pushNamed(context, loginRoute),
               child: Text(
                 " Log In",
-                style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontSize: mobileSize.width > 768 ? 16 : 12,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Colors.blue),
               ),
             ),
           ],

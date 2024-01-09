@@ -20,7 +20,6 @@ class HelloAppBar extends StatefulWidget {
 
 class _HelloAppBarState extends State<HelloAppBar>
     with TickerProviderStateMixin {
-
   AnimationController? _staggeredAnimationController;
   AnimationController? _firstAnimationController;
   AnimationController? _secondAnimationController;
@@ -42,10 +41,10 @@ class _HelloAppBarState extends State<HelloAppBar>
   void initState() {
     super.initState();
 
-    const  speedInMilliSeconds=1000;
-    _staggeredAnimationController=AnimationController(
+    const speedInMilliSeconds = 1000;
+    _staggeredAnimationController = AnimationController(
       vsync: this,
-      duration:  const Duration(
+      duration: const Duration(
         milliseconds: speedInMilliSeconds,
       ),
     );
@@ -97,74 +96,85 @@ class _HelloAppBarState extends State<HelloAppBar>
     //     );
     _firstPointTopPositionAnimation =
         Tween<double>(begin: firstTopCoordination, end: 0).animate(
-          CurvedAnimation(
-            parent: _staggeredAnimationController!,
-            curve: const Interval(
-              0,
-              0.334,
-              curve:Curves.linear,
-          ),
-          ),
-        );
-
-    _secondPointTopPositionAnimation =
-        Tween<double>(begin: secondTopCoordination, end: 0).animate(
-          CurvedAnimation(
-            parent: _staggeredAnimationController!,
-            curve: const Interval(
-              0.1655,
-              0.51,
-              curve:Curves.linear,
-            ),
-          ),
-        );
-
-    _thirdPointTopPositionAnimation =
-        Tween<double>(begin: thirdTopCoordination, end: 0).animate(
-            CurvedAnimation(
-              parent: _staggeredAnimationController!,
-              curve:const Interval(0.334, 0.668,curve:Curves.linear,
-              ),
-            ),
-        );
-    _firstPointTopPositionAnimationReverse =
-        Tween<double>(begin: 0, end: firstTopCoordination).animate(
-          CurvedAnimation(
-            parent: _staggeredAnimationController!,
-            curve:const Interval(0.334, 0.668,curve:Curves.linear,
-            ),
-          ),
-        );
-    _secondPointTopPositionAnimationReverse=
-      Tween<double>(begin: 0, end: secondTopCoordination).animate(
-        CurvedAnimation(
+      CurvedAnimation(
         parent: _staggeredAnimationController!,
-        curve:const Interval(0.51, 0.8411,curve:Curves.linear,
+        curve: const Interval(
+          0,
+          0.334,
+          curve: Curves.linear,
         ),
       ),
     );
-    _thirdPointTopPositionAnimationReverse=
+
+    _secondPointTopPositionAnimation =
+        Tween<double>(begin: secondTopCoordination, end: 0).animate(
+      CurvedAnimation(
+        parent: _staggeredAnimationController!,
+        curve: const Interval(
+          0.1655,
+          0.51,
+          curve: Curves.linear,
+        ),
+      ),
+    );
+
+    _thirdPointTopPositionAnimation =
+        Tween<double>(begin: thirdTopCoordination, end: 0).animate(
+      CurvedAnimation(
+        parent: _staggeredAnimationController!,
+        curve: const Interval(
+          0.334,
+          0.668,
+          curve: Curves.linear,
+        ),
+      ),
+    );
+    _firstPointTopPositionAnimationReverse =
+        Tween<double>(begin: 0, end: firstTopCoordination).animate(
+      CurvedAnimation(
+        parent: _staggeredAnimationController!,
+        curve: const Interval(
+          0.334,
+          0.668,
+          curve: Curves.linear,
+        ),
+      ),
+    );
+    _secondPointTopPositionAnimationReverse =
+        Tween<double>(begin: 0, end: secondTopCoordination).animate(
+      CurvedAnimation(
+        parent: _staggeredAnimationController!,
+        curve: const Interval(
+          0.51,
+          0.8411,
+          curve: Curves.linear,
+        ),
+      ),
+    );
+    _thirdPointTopPositionAnimationReverse =
         Tween<double>(begin: 0, end: thirdTopCoordination).animate(
-          CurvedAnimation(
-            parent: _staggeredAnimationController!,
-            curve:const Interval(0.67, 1,curve:Curves.linear,
-            ),
-          ),
-        );
+      CurvedAnimation(
+        parent: _staggeredAnimationController!,
+        curve: const Interval(
+          0.67,
+          1,
+          curve: Curves.linear,
+        ),
+      ),
+    );
 
-    Future.delayed(const Duration(seconds: 1),() {
-      _staggeredAnimationController?.forward();
-      },);
-
-
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        _staggeredAnimationController?.forward();
+      },
+    );
 
     Timer.periodic(const Duration(seconds: 8), (Timer timer) {
       _staggeredAnimationController?.reset();
       // Call your function here
-        _staggeredAnimationController?.forward();
+      _staggeredAnimationController?.forward();
     });
-
-
 
     // triggerTheAnimation(){
     //   _firstAnimationController?..reset()..forward();
@@ -231,20 +241,8 @@ class _HelloAppBarState extends State<HelloAppBar>
     //   triggerTheAnimation();
     //
     // },);
-    
-    
-    startStaggeredAnimation(){
-      
-    }
-    
 
-
-
-
-
-
-
-
+    startStaggeredAnimation() {}
   }
 
   @override
@@ -255,12 +253,8 @@ class _HelloAppBarState extends State<HelloAppBar>
     _thirdAnimationController?.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-   
-
     return AppBar(
       // backgroundColor: MyColors.primaryWhiteThemeColor(context),
       titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
@@ -270,16 +264,27 @@ class _HelloAppBarState extends State<HelloAppBar>
         width: 200,
         // child: _buildAnimationPoints(int index),
         child: AnimatedBuilder(
-          animation: Listenable.merge([_firstPointTopPositionAnimation!,_secondPointTopPositionAnimation!,_thirdPointTopPositionAnimation!,_firstPointTopPositionAnimationReverse!,_secondPointTopPositionAnimationReverse!,_thirdPointTopPositionAnimationReverse!]),
+          animation: Listenable.merge([
+            _firstPointTopPositionAnimation!,
+            _secondPointTopPositionAnimation!,
+            _thirdPointTopPositionAnimation!,
+            _firstPointTopPositionAnimationReverse!,
+            _secondPointTopPositionAnimationReverse!,
+            _thirdPointTopPositionAnimationReverse!
+          ]),
           builder: (BuildContext context, Widget? child) {
             return Stack(
               alignment: Alignment.center,
               children: [
-                 const Text(
+                Text(
                   'HELLO',
-                ),Positioned(
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                Positioned(
                   right: 25,
-                  top:_thirdPointTopPositionAnimation !.value>0?_thirdPointTopPositionAnimation!.value:_thirdPointTopPositionAnimationReverse!.value,
+                  top: _thirdPointTopPositionAnimation!.value > 0
+                      ? _thirdPointTopPositionAnimation!.value
+                      : _thirdPointTopPositionAnimationReverse!.value,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3.0),
                     child: CircleAvatar(
@@ -287,9 +292,12 @@ class _HelloAppBarState extends State<HelloAppBar>
                       radius: 3,
                     ),
                   ),
-                ), Positioned(
+                ),
+                Positioned(
                   right: 35,
-                  top: _secondPointTopPositionAnimation!.value>0?_secondPointTopPositionAnimation!.value:_secondPointTopPositionAnimationReverse!.value,
+                  top: _secondPointTopPositionAnimation!.value > 0
+                      ? _secondPointTopPositionAnimation!.value
+                      : _secondPointTopPositionAnimationReverse!.value,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3.0),
                     child: CircleAvatar(
@@ -297,9 +305,12 @@ class _HelloAppBarState extends State<HelloAppBar>
                       radius: 3,
                     ),
                   ),
-                ), Positioned(
+                ),
+                Positioned(
                   right: 45,
-                  top: _firstPointTopPositionAnimation!.value>0?_firstPointTopPositionAnimation!.value:_firstPointTopPositionAnimationReverse!.value,
+                  top: _firstPointTopPositionAnimation!.value > 0
+                      ? _firstPointTopPositionAnimation!.value
+                      : _firstPointTopPositionAnimationReverse!.value,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3.0),
                     child: CircleAvatar(
@@ -309,10 +320,8 @@ class _HelloAppBarState extends State<HelloAppBar>
                   ),
                 ),
               ],
-
             );
           },
-
         ),
       ),
       leading: Builder(
@@ -348,9 +357,8 @@ class _HelloAppBarState extends State<HelloAppBar>
                             .changeTheme();
                       },
                       activeColor: Colors.white,
-                      inactiveThumbImage:  const AssetImage(
-                          crescentImage),
-                      activeThumbImage:  const AssetImage(
+                      inactiveThumbImage: const AssetImage(crescentImage),
+                      activeThumbImage: const AssetImage(
                         lightBulbImage,
                       ),
                       // inactiveThumbImage: const NetworkImage(

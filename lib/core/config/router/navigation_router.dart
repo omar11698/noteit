@@ -12,7 +12,7 @@ import '../dependency_injection/DI.dart';
 
 const String homeRoute = '/';
 const String addNoteRoute = '/addNoteRoute';
-const String registerRouter = '/registerRoute';
+const String registerRoute = '/registerRoute';
 const String loginRoute = '/loginRoute';
 
 class NavigationRouter {
@@ -34,7 +34,7 @@ class NavigationRouter {
                   isEditing: false,
                 ));
 
-      case registerRouter:
+      case registerRoute:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
 
       case loginRoute:
